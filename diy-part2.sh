@@ -35,7 +35,7 @@ sed -i 's/OpenWrt/Phicomm/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # ------------------------------- Other started -------------------------------
 #
 # Add luci-app-amlogic
-svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
+# svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
 
 # svn co https://github.com/vernesong/OpenClash.git/trunk/luci-app-openclash package/luci-app-openclash
 

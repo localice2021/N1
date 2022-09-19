@@ -146,7 +146,7 @@ jobs:
       env:
         OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
         PACKAGE_SOC: s905d
-        KERNEL_VERSION_NAME: 5.4.170_5.15.13
+        KERNEL_VERSION_NAME: 5.4.212_5.15.68
         KERNEL_AUTO_LATEST: true
 
     - name: Upload firmware to cowtransfer

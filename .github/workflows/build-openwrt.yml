@@ -113,10 +113,10 @@ jobs:
       if: (!cancelled())
       run: df -hT
     
-    #- name: Upload artifact to Actions
-    #  uses: kittaakos/upload-artifact-as-is@master
-    #  with:
-    #    path: ${{ env.PACKAGED_OUTPUTPATH }}/
+    - name: Upload artifact to Actions
+      uses: kittaakos/upload-artifact-as-is@master
+      with:
+        path: ${{ env.PACKAGED_OUTPUTPATH }}/
 
     - name: Upload bin directory
       uses: actions/upload-artifact@main

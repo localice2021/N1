@@ -175,7 +175,8 @@ jobs:
         token: ${{ secrets.RELEASES_TOKEN }}
         body: |
           默认IP： 192.168.19.1 默认密码： password
-          artifacts: ${{ env.FIRMWARE }}/*
+        artifacts: ${{ env.FIRMWARE }}/*
+        
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:

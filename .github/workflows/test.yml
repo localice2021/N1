@@ -1,13 +1,29 @@
-name: download
+name: CI
+
+on: workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v2
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: make testapp
+    - uses: actions/upload-artifact@v1
+      with:
+        name: tests
+        path: testapp
 
-- uses: actions/download-artifact@v3
-  with:
-    name: my-artifact
-    
-- name: Display structure of downloaded files
-  run: ls -R
+  test:
+    needs: build
+    strategy:
+      matrix:
+        container: ['ubuntu:20.04', 'debian:buster', 'centos:8', 'alpine:3']
+    runs-on: ubuntu-latest
+    container: ${{matrix.container}}
+    steps:
+    - uses: actions/download-artifact@v1
+      with:
+        name: tests
+    - name: Run Tests
+      run: chmod 0755 tests/testapp && tests/testapp

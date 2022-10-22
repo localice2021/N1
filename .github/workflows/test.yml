@@ -11,8 +11,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: my-artifact
-    
+          name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}    
       - name: Display structure of downloaded files
         run: ls -R
 

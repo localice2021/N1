@@ -1,13 +1,13 @@
 name: Use Releases file to Packaging
-on: [push]
 
-env:
-  TZ: America/New_York
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    if: github.event.repository.owner.id == github.event.sender.id
+  env:
+    TZ: America/New_York
+
+  jobs:
+    build:
+      runs-on: ubuntu-22.04
+      if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
       - name: Checkout

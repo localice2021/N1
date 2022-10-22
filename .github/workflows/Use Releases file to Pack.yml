@@ -1,44 +1,5 @@
 name: Use Releases file to Packaging
-
-on:
-  repository_dispatch:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: "Select the source branch"
-        required: false
-        default: "lede"
-        type: choice
-        options:
-          - lede
-          - official
-      openwrt_soc:
-        description: "Select device SoC"
-        required: false
-        default: "s905d"
-        type: choice
-        options:
-          - all
-          - s905d
-      openwrt_kernel:
-        description: "Select kernel version"
-        required: false
-        default: "5.4.210_5.10.135_5.15.50"
-        type: choice
-        options:
-          - 5.4.210_5.10.135_5.15.50
-          - 5.10.135
-          - 5.15.50
-          - 5.19.1
-      auto_kernel:
-        description: "Auto use the latest kernel"
-        required: false
-        default: true
-        type: boolean
-      openwrt_size:
-        description: "Set the rootfs size(Unit: MiB)."
-        required: false
-        default: "960"
+on: [push]
 
 env:
   TZ: America/New_York
@@ -64,19 +25,13 @@ jobs:
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "${TZ}"
           echo "::set-output name=status::success"
-      - name: Download OpenWrt Armvirt firmware
-        id: down
-        if: (!cancelled())
-        run: |
-          openwrt_url="$(curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" | grep -o "OpenWrt_.*${{ github.event.inputs.branch }}.*/.*rootfs.tar.gz" | head -n 1)"
-          [[ -z "${openwrt_url}" ]] && echo -e "OpenWrt file not found!" && exit 1
-          #
-          armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
-          [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
-          #
-          wget -q -P "${armvirt_tarfile_path}" "https://github.com/${GITHUB_REPOSITORY}/releases/download/${openwrt_url}"
-          [[ "${?}" -ne "0" ]] && echo "The armvirt file download failed!" && exit 1
-          echo "::set-output name=status::success"
+      - name: 'Download a Build Artifact'
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+    
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Package Armvirt as OpenWrt
         uses: unifreq/openwrt_packit@master
         env:

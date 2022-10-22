@@ -1,13 +1,14 @@
 name: Use Releases file to Packaging
 
+on:
+  workflow_dispatch:  
+env:
+  TZ: America/New_York
 
-  env:
-    TZ: America/New_York
-
-  jobs:
-    build:
-      runs-on: ubuntu-22.04
-      if: github.event.repository.owner.id == github.event.sender.id
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
       - name: Checkout

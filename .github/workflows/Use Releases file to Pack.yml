@@ -26,19 +26,32 @@ jobs:
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "${TZ}"
           echo "::set-output name=status::success"
-      - name: 'Download a Build Artifact'
-        uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
+      #- name: 'Download a Build Artifact'
+        #uses: actions/download-artifact@v3
+        #with:
+          #name: my-artifact
     
-      - name: Display structure of downloaded files
-        run: ls -R
-      - name: Package Armvirt as OpenWrt
+      #- name: Display structure of downloaded files
+        #run: ls -R
+      - name: Download OpenWrt Armvirt firmware
+        id: down
+        run: |
+          openwrt_url="$(curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" | grep -o "OpenWrt_.*${{ github.event.inputs.branch }}.*/.*rootfs.tar.gz" | head -n 1)"
+          [[ -z "${openwrt_url}" ]] && echo -e "OpenWrt file not found!" && exit 1
+          #
+          armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
+          [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
+          #
+          wget -q -P "${armvirt_tarfile_path}" "https://github.com/${GITHUB_REPOSITORY}/releases/download/${openwrt_url}"
+          [[ "${?}" -ne "0" ]] && echo "The armvirt file download failed!" && exit 1
+          echo "status=success" >> ${GITHUB_OUTPUT}
+      - name: Build OpenWrt firmware
+        if: ${{ steps.down.outputs.status }} == 'success' && !cancelled()
         uses: unifreq/openwrt_packit@master
         env:
           OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
-          PACKAGE_SOC: s905d_s905x3_s922x_vplus_beikeyun_l1pro_qemu
-          KERNEL_VERSION_NAME: 5.15.35_5.17.5
+          PACKAGE_SOC: s905d
+          KERNEL_VERSION_NAME: 5.15.35_5.4.213
           
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
@@ -46,10 +59,10 @@ jobs:
           tag: openwrt_armvirt_v8_${{ env.PACKAGED_OUTPUTDATE }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.SECRET_KEY }}
           body: |
             This is OpenWrt firmware for Armvirt 64
             * Firmware information
-            Default IP: 192.168.1.1
+            Default IP: 192.168.19.1
             Default username: root
             Default password: password

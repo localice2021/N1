@@ -53,16 +53,19 @@ jobs:
           PACKAGE_SOC: s905d
           KERNEL_VERSION_NAME: 5.15.35_5.4.213
           
+          
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
+        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: openwrt_armvirt_v8_${{ env.PACKAGED_OUTPUTDATE }}
+          tag: OpenWrt_Aml_${{ github.event.inputs.branch }}_${{ env.PACKAGED_OUTPUTDATE }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
           token: ${{ secrets.SECRET_KEY }}
           body: |
-            This is OpenWrt firmware for Armvirt 64
+            This is OpenWrt firmware for Amlogic N1 box
             * Firmware information
             Default IP: 192.168.19.1
             Default username: root
             Default password: password
+            

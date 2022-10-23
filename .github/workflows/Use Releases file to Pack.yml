@@ -58,9 +58,9 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: OpenWrt_Aml_${{ github.event.inputs.branch }}_${{ env.PACKAGED_OUTPUTDATE }}
+          tag: OpenWrt_Aml_${{ env.PACKAGED_OUTPUTDATE }} #${{ github.event.inputs.branch }}_
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
-          token: ${{ secrets.SECRET_KEY }}
+          #token: ${{ secrets.SECRET_KEY }}
           body: |
             This is OpenWrt firmware for Amlogic N1 box
             * Firmware information

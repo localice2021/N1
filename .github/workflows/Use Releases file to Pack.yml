@@ -36,7 +36,7 @@ jobs:
       - name: Download OpenWrt Armvirt firmware
         id: down
         run: |
-          openwrt_url="$(curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" | grep -o "OpenWrt-.*${{ github.event.inputs.branch }}.*/.*rootfs.tar.gz" | head -n 1)"
+          openwrt_url="$(curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" | grep -o "2022.*.*/.*rootfs.tar.gz" | head -n 1)"
           [[ -z "${openwrt_url}" ]] && echo -e "OpenWrt file not found!" && exit 1
           #
           armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"

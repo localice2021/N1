@@ -168,8 +168,8 @@ jobs:
         #GITHUB_TOKEN: ${{ secrets.SECRET_KEY }} #GITHUB_TOKEN
       with:
         tag: ${{ steps.tag.outputs.release_tag }}
-        body_path: release.txt
-        files: ${{ env.FIRMWARE }}/*
+        body: release.txt
+        artifacts: ${{ env.FIRMWARE }}/*
         
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main

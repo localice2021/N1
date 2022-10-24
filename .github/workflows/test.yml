@@ -1,4 +1,4 @@
-name: CI
+name: My test
 
 on: 
   workflow_dispatch:

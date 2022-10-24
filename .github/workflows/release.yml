@@ -11,8 +11,8 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v2
-    - uses: ncipollo/release-action@v1
+    - uses: ncipollo/release-action@main
       with:
         artifacts: "release.tar.gz,foo/*.txt"
-        bodyFile: "body.md"
-        token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+        
+        

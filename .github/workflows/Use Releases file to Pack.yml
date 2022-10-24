@@ -1,4 +1,4 @@
-name: Use Releases file to Packaging
+name: Use Releases file to Packaging N1 box
 
 on:
   workflow_dispatch:  
@@ -26,13 +26,7 @@ jobs:
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "${TZ}"
           echo "{status}={success}" >> $GITHUB_OUTPUT
-        #- name: 'Download a Build Artifact'
-        #uses: actions/download-artifact@v3
-        #with:
-          #name: my-artifact
-    
-      #- name: Display structure of downloaded files
-        #run: ls -R
+
       - name: Download OpenWrt Armvirt firmware
         id: down
         run: |
@@ -53,14 +47,12 @@ jobs:
           PACKAGE_SOC: s905d
           KERNEL_VERSION_NAME: 5.15.35_5.4.213
           
-          
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: OpenWrt_Aml_${{ env.PACKAGED_OUTPUTDATE }} #${{ github.event.inputs.branch }}_
+          tag: OpenWrt_N1_${{ env.PACKAGED_OUTPUTDATE }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
-          #token: ${{ secrets.SECRET_KEY }}
           body: |
             This is OpenWrt firmware for Amlogic N1 box
             * Firmware information

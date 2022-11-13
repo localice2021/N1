@@ -168,7 +168,12 @@ jobs:
         #GITHUB_TOKEN: ${{ secrets.SECRET_KEY }} #GITHUB_TOKEN
       with:
         tag: ${{ steps.tag.outputs.release_tag }}
-        body: release.txt
+        body: 
+          This is OpenWrt firmware for Amlogic N1 box
+            * Firmware information
+            Default IP: 192.168.19.1
+            Default username: root
+            Default password: passwor
         artifacts: ${{ env.FIRMWARE }}/*
         
     - name: Delete workflow runs

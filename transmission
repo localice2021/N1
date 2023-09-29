@@ -1,0 +1,3 @@
+1. 进入路由器，编辑/etc/init.d/transmission 这个文件
+2.在这个文件的快结尾处， 注释掉这句procd_add_jail transmission log， 再添加一句procd_add_jail_mount "$web_home"
+3. 重启transmission， /etc/init.d/transmission restart

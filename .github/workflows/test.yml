@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build OpenWrt
+name: test workflows
 
 on:
   repository_dispatch:
@@ -123,7 +123,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
         cd openwrt
-        rm *.gz
+        rm *
         echo "status=success" >> $GITHUB_OUTPUT        
         
 
@@ -131,7 +131,7 @@ jobs:
       id: tag
       if: github.event.inputs.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M"+GITHUB_REF_NAME)" >> $GITHUB_OUTPUT        
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M")"-${{ github.ref_name }} >> $GITHUB_OUTPUT        
         touch release.txt
         echo "status=success" >> $GITHUB_OUTPUT        
         

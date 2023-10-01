@@ -111,6 +111,7 @@ jobs:
       run: |
         cd openwrt
         echo touch test.txt
+        echo touch aa.gz
         echo "status=success" >> $GITHUB_OUTPUT
         
     - name: Check space usage
@@ -123,7 +124,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
         cd openwrt
-        rm *
+        rm 
         echo "status=success" >> $GITHUB_OUTPUT        
         
 
@@ -146,7 +147,7 @@ jobs:
           Default IP: 192.168.19.1
           Default username: root
         #artifacts: ${{ env.FIRMWARE }}/*
-        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*.gz
         
     - name: Clean up server space
       if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()

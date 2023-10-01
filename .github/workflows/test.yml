@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: test workflows
+name: Build OpenWrt
 
 on:
   repository_dispatch:
@@ -105,14 +105,14 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
-   
+        
     - name: Compile the firmware
       id: compile
       run: |
         cd openwrt
-        touch test.txt
-        echo "{status}={success}" >> $GITHUB_OUTPUT
-                
+        echo touch test.txt
+        echo "status=success" >> $GITHUB_OUTPUT
+        
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
@@ -120,13 +120,41 @@ jobs:
 
     - name: Organize files
       id: organize
-      if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()
+      if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
         cd openwrt
-        rm -rf *
+        rm *
         echo "status=success" >> $GITHUB_OUTPUT        
         
-   
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@main
+      if: github.event.inputs.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      with:
+        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}
+
+
+    - name: Generate release tag
+      id: tag
+      if: github.event.inputs.UPLOAD_RELEASE == 'true' && !cancelled()
+      run: |
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M"+GITHUB_REF_NAME)" >> $GITHUB_OUTPUT        
+        touch release.txt
+        echo "status=success" >> $GITHUB_OUTPUT        
+        
+    - name: Upload firmware to release
+      uses:  ncipollo/release-action@main
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      with:
+        tag: ${{ steps.tag.outputs.release_tag }}
+        body: |
+          This is OpenWrt firmware for Amlogic N1 box
+          * Firmware information
+          Default IP: 192.168.19.1
+          Default username: root
+        #artifacts: ${{ env.FIRMWARE }}/*
+        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+        
     - name: Clean up server space
       if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()
       run: |

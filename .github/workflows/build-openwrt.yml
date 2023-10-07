@@ -17,12 +17,14 @@ on:
       UPLOAD_FIRMWARE:
         required: false
         default: 'false'
+        type: choice
         options:
          - 'false'
          - 'true'
       UPLOAD_RELEASE:
         required: false
         default: 'true'
+        type: choice
         options:
          - 'false'
          - 'true'

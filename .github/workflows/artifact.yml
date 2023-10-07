@@ -46,9 +46,13 @@ jobs:
        
     - name: Download artifact package
       id: package
-      uses: actions/download-artifact@v3
-      with:
-        name: OpenWrt_firmware_generic_202310071818
+      run: |
+        mkdir -p /openwrt/bin/targets
+        wget -q -o https://github.com/localice2021/Phicomm_N1/suites/16979287444/artifacts/970214690 | tar -xzf -C openwrt/bin/targets
+      
+      #uses: actions/download-artifact@v3
+      #with:
+       # name: OpenWrt_firmware_generic_202310071818
         
     - name: Build OpenWrt firmware
       uses: unifreq/openwrt_packit@master

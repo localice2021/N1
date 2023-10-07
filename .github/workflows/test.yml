@@ -30,5 +30,7 @@ jobs:
       id: package
       run: |
         sudo mkdir -p /openwrt/bin/targets
-        sudo wget -q -o - https://github.com/localice2021/Phicomm_N1/suites/16979287444/artifacts/970214690 | tar -xzf - -C openwrt/bin/targets
+        cd /openwrt/bin/targets
+        sudo wget https://github.com/localice2021/Phicomm_N1/suites/16979287444/artifacts/970214690 
+        tar -xzf OpenWrt_firmware_generic_202310071818
         ls -R

@@ -27,12 +27,6 @@ jobs:
 
     
     - name: Download artifact package
-      id: package
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        sudo mkdir -p /openwrt/bin/targets
-        cd /openwrt/bin/targets
-        gh run download 170
-        sudo tar -xzf OpenWrt_firmware_generic_202310071818
-        ls -R
+      uses: actions/download-artifact@v3
+      with:
+        name: my-artifact

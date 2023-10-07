@@ -126,11 +126,13 @@ jobs:
         
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
-      if: github.event.inputs.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && github.event.inputs.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: ${{ env.FIRMWARE }}
-
+        path: |
+          ${{ env.FIRMWARE }}/openwrt-armvirt-64-generic.manifest
+          ${{ env.FIRMWARE }}/openwrt-armvirt-64-generic-rootfs.tar.gz
+          ${{ env.FIRMWARE }}/config.buildinfo
 
     - name: Build OpenWrt firmware
       if: steps.organize.outputs.status == 'success' && !cancelled()
@@ -142,7 +144,7 @@ jobs:
         
     - name: Generate release tag
       id: tag
-      if: github.event.inputs.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && github.event.inputs.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
         echo "release_tag=$(date +"%Y.%m.%d-%H%M")"-${{ github.ref_name }} >> $GITHUB_OUTPUT        
         touch release.txt

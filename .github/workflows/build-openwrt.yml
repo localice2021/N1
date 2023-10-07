@@ -142,7 +142,7 @@ jobs:
         
     - name: Generate release tag
       id: tag
-      if: github.event.inputs.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && github.event.inputs.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
         echo "release_tag=$(date +"%Y.%m.%d-%H%M")"-${{ github.ref_name }} >> $GITHUB_OUTPUT        
         touch release.txt
@@ -173,5 +173,5 @@ jobs:
       with:
         token: ${{ github.token }}
         repository: ${{ github.repository }}
-        retain_days: 180
+        retain_days: 30
         keep_minimum_runs: 6  

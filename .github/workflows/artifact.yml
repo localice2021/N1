@@ -47,8 +47,8 @@ jobs:
     - name: Download artifact package
       id: package
       uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
+      with:
+        name: OpenWrt_firmware_generic_202310071818
         
     - name: Build OpenWrt firmware
       uses: unifreq/openwrt_packit@master

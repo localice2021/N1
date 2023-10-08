@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: use artifact to Build OpenWrt
+name: use release to Build OpenWrt
 
 on:
   repository_dispatch:
@@ -41,14 +41,17 @@ jobs:
           sudo mkdir -p /workdir
           sudo chown ${USER}:${GROUPS} /workdir
           sudo timedatectl set-timezone "${TZ}"
+          armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
+          [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
           echo "status=success" >> ${GITHUB_OUTPUT}
         
        
     - name: Download artifact package
       id: package
-      run: |
-        mkdir -p /openwrt/bin/targets
-        wget -q -o https://github.com/localice2021/Phicomm_N1/suites/16979287444/artifacts/970214690 | tar -xzf -C openwrt/bin/targets
+      uses: robinraju/release-downloader@v1.8
+      with:
+        latest: true
+        fileName: "openwrt-armvirt-64-generic-rootfs.tar.gz"
       
       #uses: actions/download-artifact@v3
       #with:

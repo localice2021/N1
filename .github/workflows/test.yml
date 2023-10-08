@@ -25,8 +25,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3 
 
-    
-    - name: Download artifact package
-      uses: actions/download-artifact@v3
+    - name: download release
+      uses: robinraju/release-downloader@v1.8
       with:
-        name: OpenWrt_firmware_generic_202310071818
+        latest: true
+        fileName: "openwrt-armvirt-64-generic-rootfs.tar.gz"

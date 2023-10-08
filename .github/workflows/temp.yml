@@ -57,7 +57,7 @@ jobs:
       uses: ophub/amlogic-s9xxx-openwrt@main
       with:
         openwrt_path: openwrt/bin/targets/*/*/*rootfs.tar.gz
-        openwrt_board: s905x3_s905x2_s905x_s905w_s905d_s922x_s912
+        openwrt_board: s905d
         openwrt_kernel: 6.1.10_5.15.50
         gh_token: ${{ secrets.GH_TOKEN }}
         

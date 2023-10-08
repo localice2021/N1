@@ -43,6 +43,7 @@ jobs:
           sudo timedatectl set-timezone "${TZ}"
           armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
           [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
+          cd ${armvirt_tarfile_path}
           echo "status=success" >> ${GITHUB_OUTPUT}
         
        

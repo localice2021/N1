@@ -41,9 +41,6 @@ jobs:
           sudo mkdir -p /workdir
           sudo chown ${USER}:${GROUPS} /workdir
           sudo timedatectl set-timezone "${TZ}"
-          armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
-          mkdir -p ${armvirt_tarfile_path}
-          cd ${armvirt_tarfile_path}
           echo "status=success" >> ${GITHUB_OUTPUT}
         
        
@@ -52,12 +49,10 @@ jobs:
       uses: robinraju/release-downloader@v1.8
       with:
         latest: true
+        out-file-path: "openwrt/bin/targets/armvirt/64"
         fileName: "openwrt-armvirt-64-generic-rootfs.tar.gz"
       
-      #uses: actions/download-artifact@v3
-      #with:
-       # name: OpenWrt_firmware_generic_202310071818
-        
+       
     - name: Build OpenWrt firmware
       uses: unifreq/openwrt_packit@master
       env:

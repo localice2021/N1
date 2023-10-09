@@ -13,7 +13,21 @@ name: use release to Build OpenWrt
 on:
   repository_dispatch:
   workflow_dispatch:
-  
+    inputs:
+      Use_ophub:
+        required: true
+        default: 'false'
+        type: choice
+        options:
+         - 'false'
+         - 'true'
+      Use_unifreq:
+        required: true
+        default: 'true'
+        type: choice
+        options:
+         - 'false'
+         - 'true'
 env:
   TZ: Asia/Shanghai
 
@@ -52,13 +66,22 @@ jobs:
         out-file-path: "openwrt/bin/targets/armvirt/64"
         fileName: "openwrt-armvirt-64-generic-rootfs.tar.gz"
       
-       
-    - name: Build OpenWrt firmware
+    - name: Package Armvirt as OpenWrt
+      if: github.event.inputs.Use_ophub == 'true' && !cancelled()      
+      uses: ophub/amlogic-s9xxx-openwrt@main
+      with:
+        openwrt_path: openwrt/bin/targets/*/*/*rootfs.tar.gz
+        openwrt_board: s905d
+        openwrt_kernel: 6.1.10_5.15.50
+        gh_token: ${{ secrets.GH_TOKEN }}
+        
+    - name: Build OpenWrt firmware use unifreq
+      if: github.event.inputs.Use_unifreq == 'true' && !cancelled() 
       uses: unifreq/openwrt_packit@master
       env:
         OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
         PACKAGE_SOC: s905d
-        KERNEL_VERSION_NAME: 5.4.1_5.15.95_6.1.15
+        KERNEL_VERSION_NAME: 5.15.95_6.1.15
         
     - name: Generate release tag
       id: tag

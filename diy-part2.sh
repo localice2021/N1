@@ -27,6 +27,15 @@ sed -i 's/OpenWrt/Phicomm/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # Modify default root's password（FROM 'password'[$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.] CHANGE TO 'your password'）
 # sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
 
+# Add wr703n
+sed -i '/tplink_tl-wr703n/ {:a;n;s/4mlzma/16mlzma/g;/TARGET_DEVICES += tplink_tl-wr703n/!ba}' target/linux/ath79/image/tiny-tp-link.mk
+sed -i 's/<0x20000 0x3d0000>/<0x20000 0xfd0000>/g' target/linux/ath79/dts/ar9331_tplink_tl-wr703n_tl-mr10u.dtsi
+sed -i 's/<0x3f0000 0x10000>/<0xff0000 0x10000>/g' target/linux/ath79/dts/ar9331_tplink_tl-wr703n_tl-mr10u.dtsi
+sed -i 's/partition@3f0000/partition@ff0000/g' target/linux/ath79/dts/ar9331_tplink_tl-wr703n_tl-mr10u.dtsi
+# wget https://downloads.openwrt.org/releases/22.03.5/targets/ath79/tiny/config.buildinfo -O config.buildinfo
+# sed -i "1i CONFIG_TARGET_DEVICE_ath79_tiny_DEVICE_tl-wr703n-v1=y\nCONFIG_TARGET_DEVICE_PACKAGES_ath79_tiny_DEVICE_tl-wr703n-v1=\"\"" config.buildinfo
+# cat config.buildinfo > .config
+
 # Replace the default software source
 # sed -i 's#openwrt.proxy.ustclug.org#mirrors.bfsu.edu.cn\\/openwrt#' package/lean/default-settings/files/zzz-default-settings
 #

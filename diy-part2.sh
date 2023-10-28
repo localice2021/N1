@@ -26,7 +26,7 @@ sed -i "s/'OpenWrt'/'wr703'/g" package/base-files/files/bin/config_generate
 sed -i 's/OpenWrt/wr703/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # Modify default root's password（FROM 'password'[$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.] CHANGE TO 'your password'）
 # sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
-sed -i 's/set wireless.radio${devidx}.disabled=1/set wireless.radio${devidx}.disabled=0/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+sed -i 's/disabled=1/disabled=0/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # Add wr703n
 sed -i '/tplink_tl-wr703n/ {:a;n;s/4mlzma/16mlzma/g;/TARGET_DEVICES += tplink_tl-wr703n/!ba}' target/linux/ath79/image/tiny-tp-link.mk
 sed -i 's/<0x20000 0x3d0000>/<0x20000 0xfd0000>/g' target/linux/ath79/dts/ar9331_tplink_tl-wr703n_tl-mr10u.dtsi

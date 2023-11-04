@@ -135,7 +135,7 @@ jobs:
 
 
     - name: Build OpenWrt firmware
-      if: steps.organize.outputs.status == 'success' && !cancelled()
+      if: github.event.inputs.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
       uses: unifreq/openwrt_packit@master
       env:
         OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz

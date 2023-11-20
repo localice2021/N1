@@ -23,7 +23,7 @@ sed -i 's/192.168.1.1/192.168.19.1/g' package/base-files/files/bin/config_genera
 sed -i "s/'OpenWrt'/'Phicomm'/g" package/base-files/files/bin/config_generate
 
 #Modify ssid
-sed -i 's/OpenWrt/Phicomm/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+sed -i 's/OpenWrt/OpenWrt_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # Modify default root's password（FROM 'password'[$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.] CHANGE TO 'your password'）
 # sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
 

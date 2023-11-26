@@ -52,6 +52,10 @@ sed -i 's/OpenWrt/OpenWrt_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.
 
 git clone https://github.com/kenzok8/small package/small
 git clone https://github.com/kenzok8/openwrt-packages package/open-packages
+git clone https://github.com/lisaac/luci-app-diskman.git package/luci-app-diskman
+git clone https://github.com/cokebar/luci-app-vlmcsd.git package/luci-app-vlmcsd
+git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
+# git clone https://github.com/lxiaya/openwrt-homeproxy.git package/luci-app-homeproxy
 # git clone https://github.com/libremesh/lime-packages.git package/lime-packages
 # Add third-party software packages (Specify the package)
 # svn co https://github.com/libremesh/lime-packages/trunk/packages/{shared-state-pirania,pirania-app,pirania} package/lime-packages/packages

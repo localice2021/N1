@@ -54,6 +54,7 @@ git clone https://github.com/kenzok8/small package/small
 git clone https://github.com/kenzok8/openwrt-packages package/open-packages
 git clone https://github.com/lisaac/luci-app-diskman.git package/luci-app-diskman
 git clone https://github.com/cokebar/luci-app-vlmcsd.git package/luci-app-vlmcsd
+git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
 # git clone https://github.com/lxiaya/openwrt-homeproxy.git package/luci-app-homeproxy
 # git clone https://github.com/libremesh/lime-packages.git package/lime-packages

@@ -136,13 +136,6 @@ jobs:
           ${{ env.FIRMWARE }}/*.buildinfo
           ${{ env.FIRMWARE }}/*-efi.img.gz
 
-    - name: Build OpenWrt firmware
-      if: github.event.inputs.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
-      uses: unifreq/openwrt_packit@master
-      env:
-        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
-        PACKAGE_SOC: s905d
-        KERNEL_VERSION_NAME: 5.15.95_6.1.15
         
     - name: Generate release tag
       id: tag
@@ -162,7 +155,7 @@ jobs:
           * Firmware information
           Default IP: 192.168.19.1
           Default username: root
-        artifacts: ${{ env.FIRMWARE }}/openwrt-armvirt-64-generic.manifest,${{ env.FIRMWARE }}/config.buildinfo,${{ env.PACKAGED_OUTPUTPATH }}/*.gz
+        artifacts: ${{ env.FIRMWARE }}/*.manifest,${{ env.FIRMWARE }}/*.buildinfo,${{ env.PACKAGED_OUTPUTPATH }}/*-efi.img.gz
         
     - name: Clean up server space
       if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()

@@ -131,7 +131,10 @@ jobs:
       if: github.event.inputs.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: ${{ env.FIRMWARE }}/*
+        path: |
+          ${{ env.FIRMWARE }}/*.manifest
+          ${{ env.FIRMWARE }}/*.buildinfo
+          ${{ env.FIRMWARE }}/*-efi.img.gz
         
     - name: Generate release tag
       id: tag

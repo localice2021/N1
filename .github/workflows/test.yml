@@ -61,7 +61,9 @@ jobs:
           sudo chown ${USER}:${GROUPS} /workdir
           sudo timedatectl set-timezone "${TZ}"
           echo "status=success" >> ${GITHUB_OUTPUT}
-        
+    - name: Checkout
+      uses: actions/checkout@v4
+      
     - name: Clone source code
       working-directory: /workdir
       run: |
@@ -71,9 +73,7 @@ jobs:
         cd openwrt
         git checkout v23.05.2
         
-    - name: Checkout
-      uses: actions/checkout@v4
-      
+     
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default

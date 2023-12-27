@@ -53,7 +53,7 @@ sed -i 's/OpenWrt/OpenWrt_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.
 git clone https://github.com/kenzok8/small package/small
 git clone https://github.com/kenzok8/openwrt-packages package/open-packages
 rm -rf package/open-packages/luci-app-filebrowser
-git clone https://github.com/xiaozhuai/luci-app-filebrowser.git package/open-packages
+git clone https://github.com/xiaozhuai/luci-app-filebrowser.git package/luci-app-filebrowser
 git clone https://github.com/lisaac/luci-app-diskman.git package/luci-app-diskman
 git clone https://github.com/cokebar/luci-app-vlmcsd.git package/luci-app-vlmcsd
 git clone https://github.com/cokebar/openwrt-vlmcsd.git package/openwrt-vlmcsd

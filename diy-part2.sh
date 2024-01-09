@@ -59,7 +59,6 @@ git clone https://github.com/cokebar/luci-app-vlmcsd.git package/luci-app-vlmcsd
 git clone https://github.com/cokebar/openwrt-vlmcsd.git package/openwrt-vlmcsd
 # git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
-svn co https://github.com/Hyy2001X/AutoBuild-Packages/trunk/webd package/luci-app-webd
 # git clone https://github.com/lxiaya/openwrt-homeproxy.git package/luci-app-homeproxy
 # git clone https://github.com/libremesh/lime-packages.git package/lime-packages
 # Add third-party software packages (Specify the package)

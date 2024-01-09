@@ -52,7 +52,6 @@ sed -i 's/OpenWrt/OpenWrt_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.
 
 git clone https://github.com/kenzok8/small package/small
 git clone https://github.com/kenzok8/openwrt-packages package/open-packages
-svn co https://github.com/Hyy2001X/AutoBuild-Packages/trunk/webd package/luci-app-webd
 # git clone https://github.com/libremesh/lime-packages.git package/lime-packages
 # Add third-party software packages (Specify the package)
 # svn co https://github.com/libremesh/lime-packages/trunk/packages/{shared-state-pirania,pirania-app,pirania} package/lime-packages/packages

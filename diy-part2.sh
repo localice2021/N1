@@ -51,7 +51,7 @@ sed -i 's/OpenWrt/OpenWrt_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.
 # git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
 
 git clone https://github.com/kenzok8/small package/small
-git clone https://github.com/kenzok8/openwrt-packages package/open-packages
+git clone https://github.com/kenzok8/small-package.git package/open-packages
 # git clone https://github.com/xiaozhuai/luci-app-filebrowser.git package/luci-app-filebrowser
 # git clone https://github.com/libremesh/lime-packages.git package/lime-packages
 # Add third-party software packages (Specify the package)

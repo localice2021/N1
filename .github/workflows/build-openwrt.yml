@@ -68,10 +68,10 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        #git clone $REPO_URL -b $REPO_BRANCH openwrt
-        git clone https://github.com/coolsnowwolf/lede openwrt
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        #git clone https://github.com/coolsnowwolf/lede openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        cd openwrt && git checkout 20230609
+        #cd openwrt && git checkout 20230609
 
     - name: ccache
       uses: klever1988/cachewrtbuild@main

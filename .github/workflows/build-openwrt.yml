@@ -59,13 +59,13 @@ jobs:
           sudo -E systemctl daemon-reload
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
-          sudo mkdir -p /workdir
-          sudo chown ${USER}:${GROUPS} /workdir
+          sudo mkdir -p /mnt/workdir
+          sudo chown ${USER}:${GROUPS} /mnt/workdir
           sudo timedatectl set-timezone "${TZ}"
           echo "status=success" >> ${GITHUB_OUTPUT}
         
     - name: Clone source code
-      working-directory: /workdir
+      working-directory: /mnt/workdir
       run: |
         df -hT $PWD
         # git clone $REPO_URL -b $REPO_BRANCH openwrt
